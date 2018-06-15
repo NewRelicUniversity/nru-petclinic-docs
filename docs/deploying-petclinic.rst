@@ -61,7 +61,8 @@ Deployment Steps
        -e JAVA_OPTS="-Xms128m -Xmx320m -XX:MaxPermSize=128m -javaagent:/usr/local/tomcat/newrelic/newrelic.jar" \ 
        -e JDBC_CONNECTION_STRING="jdbc:mysql://mysql:3306/petclinic" \ 
        -e NEW_RELIC_LICENSE_KEY="{your-license-key}" \ 
-       -v ~/webapps:/usr/local/tomcat/webapps -v ~/newrelic:/usr/local/tomcat/newrelic \ 
+       -v ~/webapps:/usr/local/tomcat/webapps \
+       -v ~/newrelic:/usr/local/tomcat/newrelic \ 
        --link mysql:mysql -p 80:8080 tomcat:8.0
 
  The above command maps the :code:`webapps` folder on your host machine to Tomcat's :code:`webapps` folder inside the container; Tomcat should start the Pet Clinic application automatically.
