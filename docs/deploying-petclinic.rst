@@ -1,8 +1,11 @@
+Deploying the Pet Clinic Application
+====================================
+
 Prerequisites
 -------------
 For ease of deployment, we run the sample application in `Docker <https://www.docker.com/>`_ containers. In order to deploy the application, you will need: 
 
-* A host running MacOS or a Linux-based operating system with `Docker <https://www.docker.com/community-edition>`_ installed. We use a t2.small EC2 instance running at AWS. <The application may run under Docker on Windows, but we have not tested it. The deployment process for Windows may differ somewhat from these instructions>`_;
+* A host running MacOS or a Linux-based operating system with `Docker <https://www.docker.com/community-edition>`_ installed. We use a t2.small EC2 instance running at AWS. (The application may run under Docker on Windows, but we have not tested it. The deployment process for Windows may differ somewhat from these instructions);
 
 * A `New Relic Pro or Enterprise account <https://docs.newrelic.com/docs/accounts/install-new-relic/account-setup/create-your-new-relic-account>`_. 
 
