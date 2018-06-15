@@ -1,12 +1,6 @@
 Deploying the Pet Clinic Sample Application
 ===========================================
 
-Introduction
------------
-New Relic's APM training includes a hands-on lab, in which students practice using APM to troubleshoot an application performance problem. We typically use the [Spring Pet Clinic sample application](https://github.com/NewRelicUniversity/spring-petclinic) for this exercise; the application has a memory leak which causes it to perform poorly under load. 
-
-This document describes how to deploy the application in your own environment.
-
 Prerequisites
 -------------
 For ease of deployment, we run the sample application in [Docker](https://www.docker.com/) containers. In order to deploy the application, you will need: 
