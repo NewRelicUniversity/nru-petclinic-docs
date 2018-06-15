@@ -6,6 +6,6 @@ New Relic's APM training includes a hands-on lab, in which students practice usi
 This document describes how to deploy the sample application, how to use New Relic Synthetics to generate traffic to the app, and how to stress the application so that the performance problem becomes apparent.
 
 .. toctree::
-   :maxdepth: 2
 
    index
+   deploying-petclinic
