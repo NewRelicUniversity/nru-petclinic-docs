@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Deploying the Pet Clinic Application - Using the Pet Clinic Sample Application</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../css/extra.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Deploying the Pet Clinic Application";
+    var mkdocs_page_input_path = "deploying-petclinic.md";
+    var mkdocs_page_url = "/deploying-petclinic/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Using the Pet Clinic Sample Application</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Introduction</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Deploying the Pet Clinic Application</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#deploying-the-pet-clinic-application">Deploying the Pet Clinic Application</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#prerequisites">Prerequisites</a></li>
+        
+            <li><a class="toctree-l3" href="#deployment-steps">Deployment Steps</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Using the Pet Clinic Sample Application</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Deploying the Pet Clinic Application</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="deploying-the-pet-clinic-application">Deploying the Pet Clinic Application</h1>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>For ease of deployment, we run the sample application in <a href="https://www.docker.com/">Docker</a> containers. In order to deploy the application, you will need: </p>
+<ul>
+<li>
+<p>A host running MacOS or a Linux-based operating system with <a href="https://www.docker.com/community-edition">Docker</a> installed. We use a t2.small EC2 instance running at AWS. (The application may run under Docker on Windows, but we have not tested it. The deployment process for Windows may differ somewhat from these instructions);</p>
+</li>
+<li>
+<p>A <a href="https://docs.newrelic.com/docs/accounts/install-new-relic/account-setup/create-your-new-relic-account">New Relic Pro or Enterprise account</a>. </p>
+</li>
+</ul>
+<h2 id="deployment-steps">Deployment Steps</h2>
+<ol>
+<li>
+<p><strong>Create mapped directories.</strong> Log into your host and create two directories: one for the New Relic agent and associated files, and the other for the Pet Clinic application itself. These directories will be mapped into the Docker container, allowing you to modify the application or New Relic configuration without rebuilding the container.</p>
+<p>In this example, the directories are named <code>newrelic</code> and <code>webapps</code>, and are created in the home directory of the logged-in user:</p>
+<div class="codehilite"><pre><span></span>$ mkdir newrelic
+$ mkdir webapps
+</pre></div>
+
+
+</li>
+<li>
+<p><strong>Download the New Relic Java agent.</strong> While still logged into your host, execute the following commands to download and extract the New Relic Java agent. Replace the <em>{account-id}</em> placeholder with your New Relic account ID, and the <em>X.X.X</em> placeholder with the version number of the downloaded file:</p>
+<div class="codehilite"><pre><span></span>$ wget https://rpm.newrelic.com/accounts/<span class="o">{</span>account-id<span class="o">}</span>/download_agent?lang<span class="o">=</span>java
+$ unzip newrelic-java-X.X.X.zip
+</pre></div>
+
+
+</li>
+<li>
+<p><strong>Replace the default newrelic.yml configuration file.</strong> Execute the following command to download a customized <code>newrelic.yml</code> file into the <code>newrelic</code> directory:</p>
+<div class="codehilite"><pre><span></span>$ wget https://github.com/NewRelicUniversity/petclinic-deploy-docs/blob/master/newrelic.yml -O newrelic/newrelic.yml
+</pre></div>
+
+
+<p>This file uses environment variables for the license key and app name, and disables the New Relic Java agent's <a href="https://docs.newrelic.com/docs/agents/java-agent/custom-instrumentation/circuit-breaker-java-custom-instrumentation">circuit breaker</a>. </p>
+</li>
+<li>
+<p><strong>Download the Pet Clinic application.</strong> Execute the following command to download the <code>petclinic.war</code> file into the <code>webapps</code> directory:</p>
+<div class="codehilite"><pre><span></span>$ wget https://github.com/NewRelicUniversity/generate-apm-data/raw/master/petclinic-1.0.war -O webapps/petclinic.war
+</pre></div>
+
+
+</li>
+<li>
+<p><strong>Start the MySQL Docker container.</strong> Execute the following command to create a Docker container running MySQL: </p>
+<div class="codehilite"><pre><span></span>$ docker run -d --name mysql <span class="se">\ </span>
+    -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span><span class="s2">&quot;petclinic&quot;</span> <span class="se">\ </span>
+    -e <span class="nv">MYSQL_DATABASE</span><span class="o">=</span><span class="s2">&quot;petclinic&quot;</span> <span class="se">\ </span>
+    -e <span class="nv">MYSQL_USER</span><span class="o">=</span><span class="s2">&quot;petclinic&quot;</span> <span class="se">\ </span>
+    -e <span class="nv">MYSQL_PASSWORD</span><span class="o">=</span><span class="s2">&quot;petclinic&quot;</span> <span class="se">\ </span>
+    -p <span class="m">3306</span>:3306 mysql:5.5
+</pre></div>
+
+
+</li>
+<li>
+<p><strong>Start the Apache Tomcat Docker container.</strong> Execute the following command to create a Docker container running Apache Tomcat. Replace the <em>{your-license-key}</em> placeholder with the license key of your New Relic account. If you wish, you may change the value of the <code>NEW_RELIC_APP_NAME</code> parameter: </p>
+<div class="codehilite"><pre><span></span>$ docker run -it -d --tmpfs /run --tmpfs /tmp --name petclinic <span class="se">\ </span>
+    -e <span class="nv">NEW_RELIC_APP_NAME</span><span class="o">=</span><span class="s2">&quot;New Relic Pet Clinic&quot;</span> <span class="se">\ </span>
+    -e <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Xms128m -Xmx320m -XX:MaxPermSize=128m -javaagent:/usr/local/tomcat/newrelic/newrelic.jar&quot;</span> <span class="se">\ </span>
+    -e <span class="nv">JDBC_CONNECTION_STRING</span><span class="o">=</span><span class="s2">&quot;jdbc:mysql://mysql:3306/petclinic&quot;</span> <span class="se">\ </span>
+    -e <span class="nv">NEW_RELIC_LICENSE_KEY</span><span class="o">=</span><span class="s2">&quot;{your-license-key}&quot;</span> <span class="se">\ </span>
+    -v ~/webapps:/usr/local/tomcat/webapps <span class="se">\</span>
+    -v ~/newrelic:/usr/local/tomcat/newrelic <span class="se">\ </span>
+    --link mysql:mysql -p <span class="m">80</span>:8080 tomcat:8.0
+</pre></div>
+
+
+<p>The above command maps the <code>webapps</code> folder on your host machine to Tomcat's <code>webapps</code> folder inside the container; Tomcat should start the Pet Clinic application automatically.</p>
+</li>
+</ol>
+<p>After a few minutes, you should be able to access the Pet Clinic application at <br />
+<code>http://{your-host-name}/petclinic</code>. </p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href=".." class="btn btn-neutral" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
+</html>
