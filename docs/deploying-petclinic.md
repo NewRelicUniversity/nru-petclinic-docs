@@ -26,7 +26,7 @@ Deployment Steps
  
 3. **Replace the default newrelic.yml configuration file.** Execute the following command to download a customized `newrelic.yml` file into the `newrelic` directory:
 
-        $ wget https://github.com/NewRelicUniversity/petclinic-deploy-docs/blob/master/newrelic.yml -O newrelic/newrelic.yml
+        $ wget https://github.com/NewRelicUniversity/nru-petclinic-docs/blob/master/newrelic.yml -O newrelic/newrelic.yml
 
     This file uses environment variables for the license key and app name, and disables the New Relic Java agent's [circuit breaker](https://docs.newrelic.com/docs/agents/java-agent/custom-instrumentation/circuit-breaker-java-custom-instrumentation). 
  
@@ -56,5 +56,5 @@ Deployment Steps
  
     The above command maps the `webapps` folder on your host machine to Tomcat's `webapps` folder inside the container; Tomcat should start the Pet Clinic application automatically.
  
-After a few minutes, you should be able to access the Pet Clinic application at   
-`http://{your-host-name}/petclinic`. 
+After a few minutes, you should be able to access the Pet Clinic application at 
+<nobr>`http://{your-host-name}/petclinic`</nobr>. 
