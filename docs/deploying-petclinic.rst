@@ -31,7 +31,7 @@ Deployment Steps
 
  .. code-block:: bash
 
-   $ wget https://github.com/NewRelicUniversity/petclinic-deploy-docs/blob/master/newrelic.yml -O newrelic/newrelic.yml
+   $ wget https://github.com/NewRelicUniversity/nru-petclinic-docs/blob/master/newrelic.yml -O newrelic/newrelic.yml
  
  This file uses environment variables for the license key and app name, and disables the New Relic Java agent's `circuit breaker <https://docs.newrelic.com/docs/agents/java-agent/custom-instrumentation/circuit-breaker-java-custom-instrumentation>`_. 
  
