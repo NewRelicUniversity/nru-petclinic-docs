@@ -11,12 +11,13 @@ For ease of deployment, we run the sample application in [Docker](https://www.do
 
 Deployment Steps
 ----------------
-1. **Create mapped directories.** Log into your host and create two directories: one for the New Relic agent and associated files, and the other for the Pet Clinic application itself. These directories will be mapped into the Docker container, allowing you to modify the application or New Relic configuration without rebuilding the container.
+1. **Create mapped directories.** Log into your host and create three directories: one for the New Relic agent and associated files, one for the Pet Clinic application itself, and the third for the application server's log files. These directories will be mapped into the Docker container, allowing you to modify the application or New Relic configuration without rebuilding the container, and to easily view or clean up the logs.
 
-    In this example, the directories are named `newrelic` and `webapps`, and are created in the home directory of the logged-in user:
+    In this example, the directories are named `newrelic`, `webapps`, and `logs`, and are created in the home directory of the logged-in user:
 
         $ mkdir newrelic
         $ mkdir webapps
+        $ mkdir logs
 
 2. **Download the New Relic Java agent.** While still logged into your host, execute the following commands to download and extract the New Relic Java agent. Replace the _{account-id}_ placeholder with your New Relic account ID, and the _X.X.X_ placeholder with the version number of the downloaded file:
     
@@ -50,11 +51,12 @@ Deployment Steps
             -e JAVA_OPTS="-Xms128m -Xmx320m -XX:MaxPermSize=128m -javaagent:/usr/local/tomcat/newrelic/newrelic.jar" \ 
             -e JDBC_CONNECTION_STRING="jdbc:mysql://mysql:3306/petclinic" \ 
             -e NEW_RELIC_LICENSE_KEY="{your-license-key}" \ 
-            -v ~/webapps:/usr/local/tomcat/webapps \
             -v ~/newrelic:/usr/local/tomcat/newrelic \ 
+            -v ~/webapps:/usr/local/tomcat/webapps \
+            -v ~/logs:/usr/local/tomcat/logs \
             --link mysql:mysql -p 80:8080 tomcat:8.0
  
     The above command maps the `webapps` folder on your host machine to Tomcat's `webapps` folder inside the container; Tomcat should start the Pet Clinic application automatically.
  
 After a few minutes, you should be able to access the Pet Clinic application at 
-<nobr>`http://{your-host-name}/petclinic`</nobr>. 
+`http://{your-host-name}/petclinic`. 
