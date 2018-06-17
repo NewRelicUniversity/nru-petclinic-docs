@@ -102,7 +102,7 @@
             <div class="section">
               
                 <h1 id="notes">Notes</h1>
-<p>As the Pet Clinic application runs, its application server creates log files that gradually consume disk space. If you find that disk space on your host is getting low, you may execute the following command to delete all but the last 7 days' of logs: </p>
+<p>As the Pet Clinic application runs, its application server creates log files that gradually consume disk space. If you find that disk space on your host is getting low, you may execute the following command to delete all but the last 7 days' logs: </p>
 <div class="codehilite"><pre><span></span>$ find ./logs <span class="se">\(</span> -name <span class="s1">&#39;*.log&#39;</span> -o -name <span class="s1">&#39;*.txt&#39;</span> <span class="se">\)</span> -type f -mtime +7 -exec rm -f <span class="o">{}</span> <span class="se">\;</span>
 </pre></div>
 
@@ -114,7 +114,7 @@ $ sudo service docker start
 </pre></div>
 
 
-<p>You may recreate the MySQL and Pet Clinic containers by re-running the <code>docker run</code> commands (steps 5 and 6) in the previous section.</p>
+<p>You may recreate the MySQL and Apache Tomcat containers by re-running the <code>docker run</code> commands (steps 5 and 6) in the <a href="https://newrelicuniversity.github.io/nru-petclinic-docs/deploying-petclinic/">previous section</a>.</p>
               
             </div>
           </div>
