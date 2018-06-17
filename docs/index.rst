@@ -9,4 +9,3 @@ This document describes how to deploy the sample application, how to use New Rel
    :maxdepth: 2
 
    deploying-petclinic
-   notes
