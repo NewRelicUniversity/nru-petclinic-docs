@@ -17,22 +17,22 @@ Deployment Steps
 
  .. code-block:: bash
 
-   $ mkdir newrelic
-   $ mkdir webapps
-   $ mkdir logs
+    $ mkdir newrelic
+    $ mkdir webapps
+    $ mkdir logs
  
 2. **Download the New Relic Java agent.** While still logged into your host, execute the following commands to download and extract the New Relic Java agent. Replace the `{account-id}` placeholder with your New Relic account ID, and the `X.X.X` placeholder with the version number of the downloaded file:
 
  .. code-block:: bash
 
-   $ wget https://rpm.newrelic.com/accounts/{account-id}/download_agent?lang=java
-   $ unzip newrelic-java-X.X.X.zip
+    $ wget https://rpm.newrelic.com/accounts/{account-id}/download_agent?lang=java
+    $ unzip newrelic-java-X.X.X.zip
  
 3. **Replace the default newrelic.yml configuration file.** Execute the following command to download a customized :code:`newrelic.yml` file into the :code:`newrelic` directory:
 
  .. code-block:: bash
 
-   $ wget https://github.com/NewRelicUniversity/nru-petclinic-docs/blob/master/newrelic.yml -O newrelic/newrelic.yml
+    $ wget https://github.com/NewRelicUniversity/nru-petclinic-docs/blob/master/newrelic.yml -O newrelic/newrelic.yml
  
  This file uses environment variables for the license key and app name, and disables the New Relic Java agent's `circuit breaker <https://docs.newrelic.com/docs/agents/java-agent/custom-instrumentation/circuit-breaker-java-custom-instrumentation>`_. 
  
@@ -40,32 +40,32 @@ Deployment Steps
 
  .. code-block:: bash
 
-   $ wget https://github.com/NewRelicUniversity/generate-apm-data/raw/master/petclinic-1.0.war -O webapps/petclinic.war
+    $ wget https://github.com/NewRelicUniversity/generate-apm-data/raw/master/petclinic-1.0.war -O webapps/petclinic.war
  
 5. **Start the MySQL Docker container.** Execute the following command to create a Docker container running MySQL: 
 
  .. code-block:: bash
 
-   $ docker run -d --name mysql \ 
-       -e MYSQL_ROOT_PASSWORD="petclinic" \ 
-       -e MYSQL_DATABASE="petclinic" \ 
-       -e MYSQL_USER="petclinic" \ 
-       -e MYSQL_PASSWORD="petclinic" \ 
-       -p 3306:3306 mysql:5.5
+    $ docker run -d --name mysql \ 
+        -e MYSQL_ROOT_PASSWORD="petclinic" \ 
+        -e MYSQL_DATABASE="petclinic" \ 
+        -e MYSQL_USER="petclinic" \ 
+        -e MYSQL_PASSWORD="petclinic" \ 
+        -p 3306:3306 mysql:5.5
  
 6. **Start the Apache Tomcat Docker container.** Execute the following command to create a Docker container running Apache Tomcat. Replace the `{your-license-key}` placeholder with the license key of your New Relic account. If you wish, you may change the value of the :code:`NEW_RELIC_APP_NAME` parameter: 
 
  .. code-block:: bash
 
-   $ docker run -it -d --tmpfs /run --tmpfs /tmp --name petclinic \ 
-       -e NEW_RELIC_APP_NAME="New Relic Pet Clinic" \ 
-       -e JAVA_OPTS="-Xms128m -Xmx320m -XX:MaxPermSize=128m -javaagent:/usr/local/tomcat/newrelic/newrelic.jar" \ 
-       -e JDBC_CONNECTION_STRING="jdbc:mysql://mysql:3306/petclinic" \ 
-       -e NEW_RELIC_LICENSE_KEY="{your-license-key}" \ 
-       -v ~/newrelic:/usr/local/tomcat/newrelic \ 
-       -v ~/webapps:/usr/local/tomcat/webapps \
-       -v ~/logs:/usr/local/tomcat/logs \ 
-       --link mysql:mysql -p 80:8080 tomcat:8.0
+    $ docker run -it -d --tmpfs /run --tmpfs /tmp --name petclinic \ 
+        -e NEW_RELIC_APP_NAME="New Relic Pet Clinic" \ 
+        -e JAVA_OPTS="-Xms128m -Xmx320m -XX:MaxPermSize=128m -javaagent:/usr/local/tomcat/newrelic/newrelic.jar" \ 
+        -e JDBC_CONNECTION_STRING="jdbc:mysql://mysql:3306/petclinic" \ 
+        -e NEW_RELIC_LICENSE_KEY="{your-license-key}" \ 
+        -v ~/newrelic:/usr/local/tomcat/newrelic \ 
+        -v ~/webapps:/usr/local/tomcat/webapps \
+        -v ~/logs:/usr/local/tomcat/logs \ 
+        --link mysql:mysql -p 80:8080 tomcat:8.0
 
  The above command maps the :code:`webapps` folder on your host machine to Tomcat's :code:`webapps` folder inside the container; Tomcat should start the Pet Clinic application automatically.
  
@@ -79,7 +79,7 @@ As the Pet Clinic application runs, its application server creates log files tha
 
     $ find ./logs \( -name '*.log' -o -name '*.txt' \) -type f -mtime +7 -exec rm -f {} \;
 
-`Some Linux distributions have a bug <https://github.com/moby/moby/issues/3182#issuecomment-256532928>`_ that causes Docker not to release disk space when containers and images are removed. If deleting log files does not free enough space, you may stop the Docker service, delete its files, and restart the service. _This will delete all Docker containers on the host!_ 
+`Some Linux distributions have a bug <https://github.com/moby/moby/issues/3182#issuecomment-256532928>`_ that causes Docker not to release disk space when containers and images are removed. If deleting log files does not free enough space, you may stop the Docker service, delete its files, and restart the service. *This will delete all Docker containers on the host!* 
 
  .. code-block:: bash
 
