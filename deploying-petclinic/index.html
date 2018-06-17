@@ -72,6 +72,11 @@
     </ul>
 	    </li>
           
+            <li class="toctree-l1">
+		
+    <a class="" href="../notes/">Notes</a>
+	    </li>
+          
         </ul>
       </div>
       &nbsp;
@@ -118,10 +123,11 @@
 <h2 id="deployment-steps">Deployment Steps</h2>
 <ol>
 <li>
-<p><strong>Create mapped directories.</strong> Log into your host and create two directories: one for the New Relic agent and associated files, and the other for the Pet Clinic application itself. These directories will be mapped into the Docker container, allowing you to modify the application or New Relic configuration without rebuilding the container.</p>
-<p>In this example, the directories are named <code>newrelic</code> and <code>webapps</code>, and are created in the home directory of the logged-in user:</p>
+<p><strong>Create mapped directories.</strong> Log into your host and create three directories: one for the New Relic agent and associated files, one for the Pet Clinic application itself, and the third for the application server's log files. These directories will be mapped into the Docker container, allowing you to modify the application or New Relic configuration without rebuilding the container, and to easily view or clean up the logs.</p>
+<p>In this example, the directories are named <code>newrelic</code>, <code>webapps</code>, and <code>logs</code>, and are created in the home directory of the logged-in user:</p>
 <div class="codehilite"><pre><span></span>$ mkdir newrelic
 $ mkdir webapps
+$ mkdir logs
 </pre></div>
 
 
@@ -168,8 +174,9 @@ $ unzip newrelic-java-X.X.X.zip
     -e <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Xms128m -Xmx320m -XX:MaxPermSize=128m -javaagent:/usr/local/tomcat/newrelic/newrelic.jar&quot;</span> <span class="se">\ </span>
     -e <span class="nv">JDBC_CONNECTION_STRING</span><span class="o">=</span><span class="s2">&quot;jdbc:mysql://mysql:3306/petclinic&quot;</span> <span class="se">\ </span>
     -e <span class="nv">NEW_RELIC_LICENSE_KEY</span><span class="o">=</span><span class="s2">&quot;{your-license-key}&quot;</span> <span class="se">\ </span>
-    -v ~/webapps:/usr/local/tomcat/webapps <span class="se">\</span>
     -v ~/newrelic:/usr/local/tomcat/newrelic <span class="se">\ </span>
+    -v ~/webapps:/usr/local/tomcat/webapps <span class="se">\</span>
+    -v ~/logs:/usr/local/tomcat/logs <span class="se">\</span>
     --link mysql:mysql -p <span class="m">80</span>:8080 tomcat:8.0
 </pre></div>
 
@@ -178,13 +185,15 @@ $ unzip newrelic-java-X.X.X.zip
 </li>
 </ol>
 <p>After a few minutes, you should be able to access the Pet Clinic application at 
-<nobr><code>http://{your-host-name}/petclinic</code></nobr>. </p>
+<code>http://{your-host-name}/petclinic</code>. </p>
               
             </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../notes/" class="btn btn-neutral float-right" title="Notes">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href=".." class="btn btn-neutral" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -215,6 +224,8 @@ $ unzip newrelic-java-X.X.X.zip
       
         <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
       
+      
+        <span style="margin-left: 15px"><a href="../notes/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
