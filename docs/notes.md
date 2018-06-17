@@ -11,4 +11,4 @@ As the Pet Clinic application runs, its application server creates log files tha
     $ sudo rm -rf /var/lib/docker
     $ sudo service docker start
 
-You may recreate the MySQL and Apache Tomcat containers by re-running the `docker run` commands (steps 5 and 6) in the [previous section](/deploying-petclinic/).
+You may recreate the MySQL and Apache Tomcat containers by re-running the `docker run` commands (steps 5 and 6) in the [previous section](/deploying-petclinic.html).
