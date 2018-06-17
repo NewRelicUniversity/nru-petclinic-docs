@@ -1,12 +1,16 @@
 pre {
     border: solid 1px #d1d4d5;
     font-family: Monaco, Consolas, Lucida Console, monospace;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.8;
     margin: 6pt 0 6pt 0;
     overflow: scroll;
     padding: 14px;
     width: 100%;
+}
+
+code {
+    font-size: 90%;
 }
 
 li {

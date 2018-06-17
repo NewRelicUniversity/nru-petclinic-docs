@@ -1,8 +1,7 @@
 site_name: Using the Pet Clinic Sample Application
 pages: 
   - Introduction: index.md
-  - Deploying the Pet Clinic Application: deploying-petclinic.md
-  - Notes: notes.md
+  - Deploying the Pet Clinic Application: deployment.md
 theme: readthedocs
 markdown_extensions: [ codehilite ]
 extra_css: [ css/extra.css ]
