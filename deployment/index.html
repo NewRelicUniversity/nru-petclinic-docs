@@ -19,8 +19,8 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Deploying the Pet Clinic Application";
-    var mkdocs_page_input_path = "deploying-petclinic.md";
-    var mkdocs_page_url = "/deploying-petclinic/";
+    var mkdocs_page_input_path = "deployment.md";
+    var mkdocs_page_url = "/deployment/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js"></script>
@@ -66,15 +66,12 @@
         
             <li><a class="toctree-l3" href="#deployment-steps">Deployment Steps</a></li>
         
+            <li><a class="toctree-l3" href="#notes">Notes</a></li>
+        
         </ul>
     
 
     </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../notes/">Notes</a>
 	    </li>
           
         </ul>
@@ -186,14 +183,26 @@ $ unzip newrelic-java-X.X.X.zip
 </ol>
 <p>After a few minutes, you should be able to access the Pet Clinic application at 
 <code>http://{your-host-name}/petclinic</code>. </p>
+<h2 id="notes">Notes</h2>
+<p>As the Pet Clinic application runs, its application server creates log files that gradually consume disk space. If you find that disk space on your host is getting low, you may execute the following command to delete all but the last 7 days' logs: </p>
+<div class="codehilite"><pre><span></span>$ find ./logs <span class="se">\(</span> -name <span class="s1">&#39;*.log&#39;</span> -o -name <span class="s1">&#39;*.txt&#39;</span> <span class="se">\)</span> -type f -mtime +7 -exec rm -f <span class="o">{}</span> <span class="se">\;</span>
+</pre></div>
+
+
+<p><a href="https://github.com/moby/moby/issues/3182#issuecomment-256532928">Some Linux distributions have a bug</a> that causes Docker not to release disk space when containers and images are removed. If deleting log files does not free enough space, you may stop the Docker service, delete its files, and restart the service. <em>This will delete all Docker containers on the host!</em> </p>
+<div class="codehilite"><pre><span></span>$ sudo service docker stop
+$ sudo rm -rf /var/lib/docker
+$ sudo service docker start
+</pre></div>
+
+
+<p>You may recreate the MySQL and Apache Tomcat containers by re-running the <code>docker run</code> commands (steps 5 and 6) above.</p>
               
             </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../notes/" class="btn btn-neutral float-right" title="Notes">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href=".." class="btn btn-neutral" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -224,8 +233,6 @@ $ unzip newrelic-java-X.X.X.zip
       
         <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
       
-      
-        <span style="margin-left: 15px"><a href="../notes/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
