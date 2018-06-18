@@ -1,7 +1,7 @@
 pre {
     border: solid 1px #d1d4d5;
     font-family: Monaco, Consolas, Lucida Console, monospace;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.8;
     margin: 6pt 0 6pt 0;
     overflow: scroll;
@@ -10,7 +10,7 @@ pre {
 }
 
 code {
-    font-size: 90%;
+    font-size: 85%;
 }
 
 li {
@@ -19,4 +19,9 @@ li {
 
 li.toctree-l2:first-child {
     display: none;
+}
+
+p {
+    margin-top: 20px;
+    margin-bottom: 16px;
 }
