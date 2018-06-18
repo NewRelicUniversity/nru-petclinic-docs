@@ -58,7 +58,7 @@ Deployment Steps
  
     The above command maps the `webapps` folder on your host machine to Tomcat's `webapps` folder inside the container; Tomcat should start the Pet Clinic application automatically.
  
-After a few minutes, you should be able to access the Pet Clinic application at 
+Within a few minutes, you should be able to access the Pet Clinic application at 
 `http://{your-host-name}/petclinic`. 
 
 Notes
