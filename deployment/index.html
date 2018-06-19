@@ -120,7 +120,7 @@
 <h2 id="deployment-steps">Deployment Steps</h2>
 <ol>
 <li>
-<p><strong>Create mapped directories.</strong> Log into your host and create three directories: one for the New Relic agent and associated files, one for the Pet Clinic application itself, and the third for the application server's log files. These directories will be mapped into the Docker container, allowing you to modify the application or New Relic configuration without rebuilding the container, and to easily view or clean up the logs.</p>
+<p><strong>Create mapped directories.</strong> Log into your host and create three directories: one for the New Relic agent and associated files, one for the Pet Clinic application itself, and the third for the application server&rsquo;s log files. These directories will be mapped into the Docker container, allowing you to modify the application or New Relic configuration without rebuilding the container, and to easily view or clean up the logs.</p>
 <p>In this example, the directories are named <code>newrelic</code>, <code>webapps</code>, and <code>logs</code>, and are created in the home directory of the logged-in user:</p>
 <div class="codehilite"><pre><span></span>$ mkdir newrelic
 $ mkdir webapps
@@ -143,7 +143,7 @@ $ unzip newrelic-java-X.X.X.zip
 </pre></div>
 
 
-<p>This file uses environment variables for the license key and app name, and disables the New Relic Java agent's <a href="https://docs.newrelic.com/docs/agents/java-agent/custom-instrumentation/circuit-breaker-java-custom-instrumentation">circuit breaker</a>. </p>
+<p>This file uses environment variables for the license key and app name, and disables the New Relic Java agent&rsquo;s <a href="https://docs.newrelic.com/docs/agents/java-agent/custom-instrumentation/circuit-breaker-java-custom-instrumentation">circuit breaker</a>. </p>
 </li>
 <li>
 <p><strong>Download the Pet Clinic application.</strong> Execute the following command to download the <code>petclinic.war</code> file into the <code>webapps</code> directory:</p>
@@ -154,11 +154,11 @@ $ unzip newrelic-java-X.X.X.zip
 </li>
 <li>
 <p><strong>Start the MySQL Docker container.</strong> Execute the following command to create a Docker container running MySQL: </p>
-<div class="codehilite"><pre><span></span>$ docker run -d --name mysql <span class="se">\ </span>
-    -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span><span class="s2">&quot;petclinic&quot;</span> <span class="se">\ </span>
-    -e <span class="nv">MYSQL_DATABASE</span><span class="o">=</span><span class="s2">&quot;petclinic&quot;</span> <span class="se">\ </span>
-    -e <span class="nv">MYSQL_USER</span><span class="o">=</span><span class="s2">&quot;petclinic&quot;</span> <span class="se">\ </span>
-    -e <span class="nv">MYSQL_PASSWORD</span><span class="o">=</span><span class="s2">&quot;petclinic&quot;</span> <span class="se">\ </span>
+<div class="codehilite"><pre><span></span>$ docker run -d --name mysql <span class="se">\</span>
+    -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span><span class="s2">&quot;petclinic&quot;</span> <span class="se">\</span>
+    -e <span class="nv">MYSQL_DATABASE</span><span class="o">=</span><span class="s2">&quot;petclinic&quot;</span> <span class="se">\</span>
+    -e <span class="nv">MYSQL_USER</span><span class="o">=</span><span class="s2">&quot;petclinic&quot;</span> <span class="se">\</span>
+    -e <span class="nv">MYSQL_PASSWORD</span><span class="o">=</span><span class="s2">&quot;petclinic&quot;</span> <span class="se">\</span>
     -p <span class="m">3306</span>:3306 mysql:5.5
 </pre></div>
 
@@ -166,25 +166,25 @@ $ unzip newrelic-java-X.X.X.zip
 </li>
 <li>
 <p><strong>Start the Apache Tomcat Docker container.</strong> Execute the following command to create a Docker container running Apache Tomcat. Replace the <em>{your-license-key}</em> placeholder with the license key of your New Relic account. If you wish, you may change the value of the <code>NEW_RELIC_APP_NAME</code> parameter: </p>
-<div class="codehilite"><pre><span></span>$ docker run -it -d --tmpfs /run --tmpfs /tmp --name petclinic <span class="se">\ </span>
-    -e <span class="nv">NEW_RELIC_APP_NAME</span><span class="o">=</span><span class="s2">&quot;New Relic Pet Clinic&quot;</span> <span class="se">\ </span>
-    -e <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Xms128m -Xmx320m -XX:MaxPermSize=128m -javaagent:/usr/local/tomcat/newrelic/newrelic.jar&quot;</span> <span class="se">\ </span>
-    -e <span class="nv">JDBC_CONNECTION_STRING</span><span class="o">=</span><span class="s2">&quot;jdbc:mysql://mysql:3306/petclinic&quot;</span> <span class="se">\ </span>
-    -e <span class="nv">NEW_RELIC_LICENSE_KEY</span><span class="o">=</span><span class="s2">&quot;{your-license-key}&quot;</span> <span class="se">\ </span>
-    -v ~/newrelic:/usr/local/tomcat/newrelic <span class="se">\ </span>
+<div class="codehilite"><pre><span></span>$ docker run -it -d --tmpfs /run --tmpfs /tmp --name petclinic <span class="se">\</span>
+    -e <span class="nv">NEW_RELIC_APP_NAME</span><span class="o">=</span><span class="s2">&quot;New Relic Pet Clinic&quot;</span> <span class="se">\</span>
+    -e <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Xms128m -Xmx320m -XX:MaxPermSize=128m -javaagent:/usr/local/tomcat/newrelic/newrelic.jar&quot;</span> <span class="se">\</span>
+    -e <span class="nv">JDBC_CONNECTION_STRING</span><span class="o">=</span><span class="s2">&quot;jdbc:mysql://mysql:3306/petclinic&quot;</span> <span class="se">\</span>
+    -e <span class="nv">NEW_RELIC_LICENSE_KEY</span><span class="o">=</span><span class="s2">&quot;{your-license-key}&quot;</span> <span class="se">\</span>
+    -v ~/newrelic:/usr/local/tomcat/newrelic <span class="se">\</span>
     -v ~/webapps:/usr/local/tomcat/webapps <span class="se">\</span>
     -v ~/logs:/usr/local/tomcat/logs <span class="se">\</span>
     --link mysql:mysql -p <span class="m">80</span>:8080 tomcat:8.0
 </pre></div>
 
 
-<p>The above command maps the <code>webapps</code> folder on your host machine to Tomcat's <code>webapps</code> folder inside the container; Tomcat should start the Pet Clinic application automatically.</p>
+<p>The above command maps the <code>webapps</code> folder on your host machine to Tomcat&rsquo;s <code>webapps</code> folder inside the container; Tomcat should start the Pet Clinic application automatically.</p>
 </li>
 </ol>
 <p>Within a few minutes, you should be able to access the Pet Clinic application at 
 <code>http://{your-host-name}/petclinic</code>. </p>
 <h2 id="notes">Notes</h2>
-<p>As the Pet Clinic application runs, its application server creates log files that gradually consume disk space. If you find that disk space on your host is getting low, you may execute the following command to delete all but the last 7 days' logs: </p>
+<p>As the Pet Clinic application runs, its application server creates log files that gradually consume disk space. If you find that disk space on your host is getting low, you may execute the following command to delete all but the last 7 days&rsquo; logs: </p>
 <div class="codehilite"><pre><span></span>$ find ./logs <span class="se">\(</span> -name <span class="s1">&#39;*.log&#39;</span> -o -name <span class="s1">&#39;*.txt&#39;</span> <span class="se">\)</span> -type f -mtime +7 -exec rm -f <span class="o">{}</span> <span class="se">\;</span>
 </pre></div>
 
