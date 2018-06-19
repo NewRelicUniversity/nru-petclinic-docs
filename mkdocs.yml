@@ -3,5 +3,5 @@ pages:
   - Introduction: index.md
   - Deploying the Pet Clinic Application: deployment.md
 theme: readthedocs
-markdown_extensions: [ codehilite ]
+markdown_extensions: [ codehilite, smarty ]
 extra_css: [ css/extra.css ]
