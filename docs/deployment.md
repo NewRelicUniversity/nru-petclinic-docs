@@ -37,21 +37,21 @@ Deployment Steps
 
 5. **Start the MySQL Docker container.** Execute the following command to create a Docker container running MySQL: 
 
-        $ docker run -d --name mysql \ 
-            -e MYSQL_ROOT_PASSWORD="petclinic" \ 
-            -e MYSQL_DATABASE="petclinic" \ 
-            -e MYSQL_USER="petclinic" \ 
-            -e MYSQL_PASSWORD="petclinic" \ 
+        $ docker run -d --name mysql \
+            -e MYSQL_ROOT_PASSWORD="petclinic" \
+            -e MYSQL_DATABASE="petclinic" \
+            -e MYSQL_USER="petclinic" \
+            -e MYSQL_PASSWORD="petclinic" \
             -p 3306:3306 mysql:5.5
  
 6. **Start the Apache Tomcat Docker container.** Execute the following command to create a Docker container running Apache Tomcat. Replace the _{your-license-key}_ placeholder with the license key of your New Relic account. If you wish, you may change the value of the `NEW_RELIC_APP_NAME` parameter: 
 
-        $ docker run -it -d --tmpfs /run --tmpfs /tmp --name petclinic \ 
-            -e NEW_RELIC_APP_NAME="New Relic Pet Clinic" \ 
-            -e JAVA_OPTS="-Xms128m -Xmx320m -XX:MaxPermSize=128m -javaagent:/usr/local/tomcat/newrelic/newrelic.jar" \ 
-            -e JDBC_CONNECTION_STRING="jdbc:mysql://mysql:3306/petclinic" \ 
-            -e NEW_RELIC_LICENSE_KEY="{your-license-key}" \ 
-            -v ~/newrelic:/usr/local/tomcat/newrelic \ 
+        $ docker run -it -d --tmpfs /run --tmpfs /tmp --name petclinic \
+            -e NEW_RELIC_APP_NAME="New Relic Pet Clinic" \
+            -e JAVA_OPTS="-Xms128m -Xmx320m -XX:MaxPermSize=128m -javaagent:/usr/local/tomcat/newrelic/newrelic.jar" \
+            -e JDBC_CONNECTION_STRING="jdbc:mysql://mysql:3306/petclinic" \
+            -e NEW_RELIC_LICENSE_KEY="{your-license-key}" \
+            -v ~/newrelic:/usr/local/tomcat/newrelic \
             -v ~/webapps:/usr/local/tomcat/webapps \
             -v ~/logs:/usr/local/tomcat/logs \
             --link mysql:mysql -p 80:8080 tomcat:8.0
