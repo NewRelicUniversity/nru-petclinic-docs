@@ -19,11 +19,10 @@ Deployment Steps
         $ mkdir webapps
         $ mkdir logs
 
-2. **Download the New Relic Java agent.** While still logged into your host, execute the following commands to download and extract the New Relic Java agent. Replace the _{account-id}_ placeholder with your New Relic account ID, and the _X.X.X_ placeholder with the version number of the downloaded file:
+2. **Download the New Relic Java agent.** While still logged into your host, execute the following commands to download and extract the New Relic Java agent:
     
-        $ wget https://rpm.newrelic.com/accounts/{account-id}/download_agent?lang=java
-        $ unzip newrelic-java-X.X.X.zip
-
+        $ wget http://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip
+        $ unzip newrelic-java.zip
  
 3. **Replace the default newrelic.yml configuration file.** Execute the following command to download a customized `newrelic.yml` file into the `newrelic` directory:
 
