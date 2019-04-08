@@ -26,7 +26,7 @@ Deployment Steps
  
 3. **Replace the default newrelic.yml configuration file.** Execute the following command to download a customized `newrelic.yml` file into the `newrelic` directory:
 
-        $ wget https://github.com/NewRelicUniversity/nru-petclinic-docs/blob/master/newrelic.yml -O newrelic/newrelic.yml
+        $ wget https://raw.githubusercontent.com/NewRelicUniversity/nru-petclinic-docs/master/newrelic.yml -O newrelic/newrelic.yml
 
     This file uses environment variables for the license key and app name, and disables the New Relic Java agent's [circuit breaker](https://docs.newrelic.com/docs/agents/java-agent/custom-instrumentation/circuit-breaker-java-custom-instrumentation). 
  
